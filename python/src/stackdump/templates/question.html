@@ -29,6 +29,7 @@ MathJax.Hub.Config({
             <form id="search" method="get" action="{{ SETTINGS.APP_URL_ROOT }}{{ site.key }}/search">
                 <input type="text" class="xlarge" name="q" value="{{ query }}" />
                 <input type="hidden" name="s" value="{{ sort_by }}" />
+                <input type="hidden" name="t" value="{{ tag }}" />
                 <input type="submit" class="btn primary" value="Search{% if site %} {{ site.name }}{% endif %}" />
             </form>
         </div>
@@ -73,7 +74,7 @@ MathJax.Hub.Config({
                 {% endif %}
                 <div class="post-tags">
                     {% for t in r.question.tags %}
-                    <span class="label">{{ t }}</span>
+                        <a {% if tag == t %} class="active" {% endif %} href="{{ SETTINGS.APP_URL_ROOT }}{{ r.site.key }}/search?q={{ query }}&amp;s={{ sort_by }}&amp;t={{ t }}"><span class="label">{{ t }}</span></a>
                     {% endfor %}
                 </div>
             </div>

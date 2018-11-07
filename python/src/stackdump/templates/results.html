@@ -8,6 +8,7 @@
             <form id="search" method="get" action="{{ SETTINGS.APP_URL_ROOT }}search">
                 <input type="text" class="xlarge" name="q" value="{{ query }}" />
                 <input type="hidden" name="s" value="{{ sort_by }}" />
+                <input type="hidden" name="t" value="{{ tag }}" />
                 <input type="submit" class="btn primary" value="Search" />
             </form>
             
@@ -36,13 +37,15 @@
                 <h3>Narrow by site</h3>
                 <ul class="site-list">
                     {% for s in sites %}
+                    {% if s.key in site_counts %}
                     <li>
                         <img src="{{ SETTINGS.APP_URL_ROOT }}media/logos/{{ s.key }}.png" alt="{{ s.name }} logo" />
                         <h6>
-                            <a href="{{ SETTINGS.APP_URL_ROOT }}{{ s.key }}/search?q={{ query }}&amp;s={{ sort_by }}">{{ s.name }}</a>
+                            <a href="{{ SETTINGS.APP_URL_ROOT }}{{ s.key }}/search?q={{ query }}&amp;s={{ sort_by }}{% if tag %}&amp;t={{ tag }}{% endif %}">{{ s.name }}</a> <small>({{ site_counts[s.key] }})</small>
                             <small class="tagline">{{ s.dump_date }}</small>
                         </h6>
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
             </div>

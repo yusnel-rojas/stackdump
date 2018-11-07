@@ -41,7 +41,7 @@
             </p>
             <div class="post-tags">
                 {% for t in r.question.tags %}
-                <span class="label">{{ t }}</span>
+                    <a {% if tag == t %} class="active" {% endif %} href="{{ SETTINGS.APP_URL_ROOT }}{{ r.site.key }}/search?q={{ query }}&amp;s={{ sort_by }}&amp;t={{ t }}"><span class="label">{{ t }}</span></a>
                 {% endfor %}
             </div>
         </div>
